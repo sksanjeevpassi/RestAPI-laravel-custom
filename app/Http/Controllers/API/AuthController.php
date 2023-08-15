@@ -53,19 +53,12 @@ class AuthController extends Controller
 
     public function getUser(Request $request)
     {
-        try{
-            if (Auth::guard('api')->check())
-            {
-                $all = Auth::guard('api')->user();
-                return response()->json(['data' => $all], 200);
-            }else{
-                return response()->json(['message' => 'Something went wrong'], 401);
-            }
-        }catch(Exception $e){
-            echo "line no - ".$e->getLine()." error- ".$e->getMessage();
-            die;
+        if (Auth::guard('api')->check())
+        {
+            $all = Auth::guard('api')->user();
+            return response()->json(['data' => $all], 200);
+        }else{
+            return response()->json(['message' => 'Something went wrong'], 401);
         }
-        
-        
     }
 }
